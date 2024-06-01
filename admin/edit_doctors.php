@@ -99,10 +99,53 @@ include_once('header.php');
     $(document).ready(function () {
       console.log('ready');
 
-      var scheduleData = {};
+      var scheduleList = [];
 
       $('#callSetSched').click(function () {
+
         new bootstrap.Modal($('#modDoctorSched')).show();
+      });
+
+      $('#addSched').click(function () {
+
+        var avail_day = $('#avail_day').val();
+        var avail_start_time = $('#avail_start_time').val();
+        var avail_end_time = $('#avail_end_time').val();
+
+        const sched_data = 
+        `
+        <div class="input-group mx-auto w-100 schedule-item">
+
+        <span class="input-group-text text-warning">Selected Day:</span>
+        <span class="input-group-text bg-warning-subtle">${avail_day}</span>
+
+        <span class="input-group-text text-success">Start Time:</span>
+        <span class="input-group-text bg-success-subtle">${avail_start_time}</span>
+
+        <span class="input-group-text text-danger">End Time:</span>
+        <span class="input-group-text bg-danger-subtle">${avail_end_time}</span>
+
+        <button class="btn btn-danger text-warning remove-sched" type="button" id="removeSched">-</button>
+
+        </div>
+        `
+
+        $('#bodySched').append(sched_data);
+
+        scheduleList.push({
+          avail_day: avail_day,
+          avail_start_time: avail_start_time,
+          avail_end_time: avail_end_time
+        });
+
+        console.log(scheduleList);
+      });
+
+      $('#bodySched').on('click', '.remove-sched', function () {
+        var index = $(this).parent().index();
+        scheduleList.splice(index, 1);
+        $(this).parent().remove();
+        console.log(scheduleList);
       });
 
       $('#btnGoBack').click(function () {
@@ -111,26 +154,29 @@ include_once('header.php');
         $('#modDoctorSched select').each(function() {
           $(this).prop('selectedIndex', 0);
         });
-
+        $('#bodySched').empty();
+        scheduleList = [];
       });
 
       $('#btnSaveSched').click(function () {
 
-        var days = ['sun', 'mon', 'tues', 'wed', 'thurs', 'fri', 'sat'];
-
-        days.forEach(function(day) {
-          scheduleData[day + '_start_time'] = $('#' + day + '_start_time').val();
-          scheduleData[day + '_end_time'] = $('#' + day + '_end_time').val();
-        });
-
-        $('#avail_dates').val(JSON.stringify(scheduleData));
         $('#modDoctorSched').modal('hide');
-        console.log(scheduleData);
+        $('#modDoctorSched select').each(function() {
+          $(this).prop('selectedIndex', 0);
+        });
+        $('#bodySched').empty();
 
+        var avail_dates = JSON.stringify(scheduleList);
+        $('#avail_dates').val(avail_dates);
+
+        console.log('Saved Schedules:', avail_dates);
+
+        scheduleList = [];
       });
 
       // CREATE DOCTOR
       $('#frmAddDoctor').submit(function (e) {
+
         e.preventDefault();
 
         var first_name = $('#first_name').val();
@@ -150,6 +196,7 @@ include_once('header.php');
         console.log('click submit', doctor_data);
 
         $.ajax({
+
           type: 'POST',
           url: 'handles/doctors/create_doctor.php',
           data: doctor_data,
@@ -167,6 +214,7 @@ include_once('header.php');
 
       // CLOSE MODAL FUNCTION
       function closeModal() {
+
         $('#modAddDoctor .btn-close').click();
         $('#modEditDoctor .btn-close').click();
         $('#modDeleteDoctor .btn-close').click();
@@ -175,6 +223,7 @@ include_once('header.php');
 
       // CLEAR FIELDS FUNCTION
       function clearFields() {
+
         $('#first_name').val('');
         $('#middle_name').val('');
         $('#last_name').val('');
@@ -183,14 +232,17 @@ include_once('header.php');
 
       // ON CLOSE MODAL
       $('#modAddDoctor').on('hidden.bs.modal', function () {
+
         clearFields();
       });
 
       $('#modEditDoctor').on('hidden.bs.modal', function () {
+
         clearFields();
       });
 
       $('#modDeleteDoctor').on('hidden.bs.modal', function () {
+
         clearFields();
       }); // END ON CLOSE MODAL
 

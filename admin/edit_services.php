@@ -134,6 +134,13 @@ include_once('header.php');
         new bootstrap.Modal($('#modServiceSched')).show();
       });
 
+      $('#btnGoBack').click(function () {
+        $('#modServiceSched').modal('hide');
+        $('#modServiceSched select').each(function() {
+          $(this).prop('selectedIndex', 0);
+        });
+      });
+
       // CLOSE MODAL FUNCTION
       function closeModal() {
         $('#modAddService .btn-close').click();
@@ -148,6 +155,12 @@ include_once('header.php');
       } // END CLEAR FIELDS FUNCTION
 
       // ON CLOSE MODAL
+      $('#modServiceSched').on('hidden.bs.modal', function () {
+        $('#modServiceSched select').each(function() {
+          $(this).prop('selectedIndex', 0);
+        });
+      });
+
       $('#modAddService').on('hidden.bs.modal', function () {
         clearFields();
       });

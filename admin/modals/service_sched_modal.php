@@ -1,5 +1,5 @@
 <!-- start schedule modal -->
-<div class="modal fade" id="modServiceSched" tabindex="-1" aria-labelledby="modServiceSchedLabel" aria-hidden="true">
+<div class="modal fade" id="modServiceSched" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modServiceSchedLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -321,7 +321,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modAddDoctor">Go Back</button>
+        <button id="btnGoBack" type="button" class="btn btn-warning" data-bs-dismiss="modal">Go Back</button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
