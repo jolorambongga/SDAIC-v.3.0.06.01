@@ -111,7 +111,7 @@ include_once('header.php');
         var avail_day = $('#avail_day').val();
         var avail_start_time = $('#avail_start_time').val();
         var avail_end_time = $('#avail_end_time').val();
-
+        //<div class="input-group mb-3 w-100 d-flex justify-content-end align-items-center">
         const sched_data = 
         `
         <div class="input-group mx-auto w-100 schedule-item">
@@ -148,9 +148,8 @@ include_once('header.php');
         console.log(scheduleList);
       });
 
-      $('#btnGoBack').click(function () {
+      $('#btnClear').click(function () {
 
-        $('#modDoctorSched').modal('hide');
         $('#modDoctorSched select').each(function() {
           $(this).prop('selectedIndex', 0);
         });
@@ -164,14 +163,12 @@ include_once('header.php');
         $('#modDoctorSched select').each(function() {
           $(this).prop('selectedIndex', 0);
         });
-        $('#bodySched').empty();
 
         var avail_dates = JSON.stringify(scheduleList);
         $('#avail_dates').val(avail_dates);
 
         console.log('Saved Schedules:', avail_dates);
 
-        scheduleList = [];
       });
 
       // CREATE DOCTOR

@@ -71,13 +71,11 @@
         </div>
         <!-- end input group -->
 
-        <span id="bodySched" class="mx-auto w-100">
-          
-        </span>
+        <div id="bodySched"></div>
 
       </div>
       <div class="modal-footer">
-        <button id="btnGoBack" type="button" class="btn btn-warning" data-bs-dismiss="modal">Go Back</button>
+        <button id="btnClear" type="button" class="btn btn-warning">Clear</button>
         <button id="btnSaveSched" type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
@@ -85,3 +83,17 @@
 </div>
 <!-- end schedule modal -->
 </form>
+
+<style>
+  .schedule-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .schedule-item .input-group-text,
+  .schedule-item .btn {
+    flex: 1;
+    margin: 2px;
+  }
+</style>

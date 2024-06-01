@@ -27,34 +27,22 @@ try {
 
     $avail_dates = json_decode($_POST['avail_dates'], true);
 
+    foreach ($avail_dates as $availability) {
+        
+        $avail_day = $availability['avail_day'];
+        $avail_start_time = $availability['avail_start_time'];
+        $avail_end_time = $availability['avail_end_time'];
 
-    $dayAbbreviations = [
-        "mon_start_time" => "MON",
-        "tues_start_time" => "TUES",
-        "wed_start_time" => "WED",
-        "thurs_start_time" => "THURS",
-        "fri_start_time" => "FRI",
-        "sat_start_time" => "SAT",
-        "sun_start_time" => "SUN"
-    ];
+        $query = "INSERT INTO tbl_DoctorAvailability (doctor_id, avail_date, avail_start_time, avail_end_time) VALUES (?, ?, ?, ?)";
 
-    foreach ($avail_dates as $key => $value) {
-        if (strpos($key, "_start_time") !== false && !empty($value)) {
-            $dayAbbreviation = $dayAbbreviations[$key];
-            $endTimeKey = str_replace("_start_time", "_end_time", $key);
-            $endTime = $avail_dates[$endTimeKey];
+        $stmt = $pdo->prepare($query);
 
-            $query = "INSERT INTO tbl_DoctorAvailability (doctor_id, avail_date, avail_start_time, avail_end_time) VALUES (?, ?, ?, ?)";
-
-            $stmt = $pdo->prepare($query);
-            
-            $stmt->execute([$doctor_id, $dayAbbreviation, $value, $endTime]);
-        }
+        $stmt->execute([$doctor_id, $avail_day, $avail_start_time, $avail_end_time]);
     }
 
 
     header('Content-Type: application/json');
-    echo json_encode(array("status" => "success", "process" => "add doctor and availability", "data" => $avail_dates));
+    echo json_encode(array("status" => "success", "process" => "add doctor and availability", "avail_dates_data" => $avail_dates));
 
 } catch (PDOException $e) {
 
