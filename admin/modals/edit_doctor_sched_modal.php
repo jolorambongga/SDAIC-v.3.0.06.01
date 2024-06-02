@@ -1,14 +1,14 @@
 <!-- start schedule modal -->
-<div class="modal fade" id="mod_addDocSched" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modDoctorSchedLabel" aria-hidden="true">
+<div class="modal fade" id="mod_editDocSched" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mod_editDocSchedLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="modDoctorSchedLabel">Set Doctor's Schedule</h1>
+        <h1 class="modal-title fs-5" id="mod_editDocSchedLabel">Edit Doctor's Schedule</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
 
-        <input type="hidden" id="avail_dates" name="avail_dates">
+        <input type="hidden" id="e_avail_dates" name="e_avail_dates">
 
         <pre></pre>
 
@@ -17,7 +17,7 @@
         <div class="input-group mb-3">
 
           <label class="input-group-text bg-warning-subtle" for="avail_day">Select Day</label>
-          <select class="form-select" id="avail_day">
+          <select class="form-select" id="e_avail_day">
             <option selected></option>
             <option>Sunday</option>
             <option>Monday</option>
@@ -31,7 +31,7 @@
 
           <!-- sun start time -->
           <label class="input-group-text bg-success-subtle" for="avail_start_time">Start Time</label>
-          <select class="form-select" id="avail_start_time">
+          <select class="form-select" id="e_avail_start_time">
             <option selected></option>
             <optgroup label="AM">                    
               <option value="9:00 AM">9:00 AM</option>
@@ -49,7 +49,7 @@
           </select>
           <!-- sun end time -->
           <label class="input-group-text bg-danger-subtle" for="avail_end_time">End Time</label>
-          <select class="form-select" id="avail_end_time">
+          <select class="form-select" id="e_avail_end_time">
             <option selected></option>
             <optgroup label="AM">
               <option value="9:00 AM">9:00 AM</option>
@@ -66,16 +66,16 @@
             </optgroup>
           </select>
 
-          <button class="btn btn-success text-warning" type="button" id="addSched">+</button>
+          <button class="btn btn-success text-warning" type="button" id="e_addSched">+</button>
         </div>
         <!-- end input group -->
 
-        <div id="bodySched"></div>
+        <div id="e_bodySched"></div>
 
       </div>
       <div class="modal-footer">
-        <button id="btnClear" type="button" class="btn btn-warning">Clear</button>
-        <button id="btnSaveSched" type="button" class="btn btn-primary">Save changes</button>
+        <button id="e_btnClear" type="button" class="btn btn-warning">Clear</button>
+        <button id="e_btnSaveSched" type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>

@@ -8,7 +8,10 @@ try {
 
 	$doctor_id = $_GET['doctor_id'];
 
-	$sql = "SELECT * FROM tbl_Doctors WHERE doctor_id = $doctor_id;";
+	$sql = "SELECT * FROM tbl_Doctors AS d
+			LEFT JOIN tbl_DoctorAvailability AS a
+			ON d.doctor_id = a.doctor_id
+			WHERE d.doctor_id = $doctor_id;";
 
 	$stmt = $pdo->query($sql);
 
