@@ -11,6 +11,14 @@ try {
 
 	if ($user_input == 'DELETE') {
 
+		$sql = "DELETE FROM tbl_DoctorAvailability WHERE doctor_id = ?;";
+
+		$stmt = $pdo->prepare($sql);
+
+		$stmt->bindParam(1, $doctor_id, PDO::PARAM_STR);
+
+		$stmt->execute();
+
 		$sql = "DELETE FROM tbl_Doctors WHERE doctor_id = ?;";
 
 		$stmt = $pdo->prepare($sql);

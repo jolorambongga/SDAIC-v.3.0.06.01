@@ -9,6 +9,7 @@
       <div class="modal-body">
 
         <input type="hidden" id="e_avail_dates" name="e_avail_dates">
+        <input type="hidden" id="e_doctor_id" name="e_doctor_id">
 
         <pre></pre>
 
