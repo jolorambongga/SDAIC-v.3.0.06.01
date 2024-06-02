@@ -43,7 +43,7 @@ include_once('header.php');
         </div>
       </div>
       <!-- end table -->
-      <!-- add doctor modal -->
+      <!-- start add doctor modal -->
       <form id="frmAddDoctor" method="POST">
         <div class="modal fade" id="modAddDoctor" tabindex="-1" aria-labelledby="modAddDoctorLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-md">
@@ -83,7 +83,7 @@ include_once('header.php');
           </div>
         </div>
       </form>
-      <!-- end modal -->
+      <!-- end add doctor modal -->
       <!-- start doctor sched modal -->
       <?php
       include_once('modals/doctor_sched_modal.php');
@@ -98,8 +98,49 @@ include_once('header.php');
   <script>
     $(document).ready(function () {
       console.log('ready');
+      loadDoctors();
 
       var scheduleList = [];
+
+      // START LOAD DOCTOR FUNCTION
+      function loadDoctors() {
+        $.ajax({
+          type: 'GET',
+          url: 'handles/doctors/read_doctors.php',
+          dataType: 'json',
+          success: function(response) {
+            console.log(response);
+            $('#tbodyDoctors').empty();
+
+            response.data_doctor.forEach(function(data) {
+
+              const datesWithNewLines = data.concat_date.replace(/,/g, '<hr>');
+              const timesWithNewLines = data.concat_time.replace(/,/g, '<hr>');
+
+              const read_doctor_html = `
+              <tr>
+              <th scope="row">${data.doctor_id}</th>
+              <td>${data.full_name}</td>
+              <td>${datesWithNewLines}</td>
+              <td>${timesWithNewLines}</td>
+              <td>${data.contact}</td>
+              <td>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end text-center">
+              <button id='callEdit' type='button' class='btn btn-success' data-bs-toggle='modal' data-bs-target='#'>${data.doctor_avail_id}</button>
+              <button id='callDelete' type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#'>${data.doctor_avail_id}</button>
+              </div>
+              </td>
+              </tr>
+              `;
+              $('#tbodyDoctors').append(read_doctor_html);
+            }); // END EACH FUNCTION
+          },
+          error: function(error) {
+            console.log("READ DOCTOR ERROR:", error);
+          }
+        });
+      } // END LOAD DOCTOR FUNCTION
+
 
       $('#callSetSched').click(function () {
 
