@@ -141,6 +141,33 @@ include_once('header.php');
           dataType: 'JSON',
           success: function(response) {
             console.log("SUCCESS READ:", response);
+            $('#tbodyServices').empty();
+
+            response.data.forEach(function(data) {
+
+              const datesWithNewLines = data.concat_date ? data.concat_date.replace(/,/g, '<hr>') : '';
+              const timesWithNewLines = data.concat_time ? data.concat_time.replace(/,/g, '<hr>') : '';
+
+              const read_doctor_html = `
+              <tr>
+                <th scope="row">${data.service_id}</th>
+                <td>${data.service_name}</td>
+                <td>${data.description}</td>
+                <td>${datesWithNewLines}</td>
+                <td>${timesWithNewLines}</td>
+                <td>${data.duration}</td>
+                <td>${data.cost}</td>
+                <td>${data.full_name}</td>
+                <td data-doctor-id='${data.doctor_id}' data-doctor-name='${data.last_name}'>
+                  <div class="d-grid gap-2 d-md-flex justify-content-md-end text-center">
+                    <button id='callEdit' type='button' class='btn btn-success' data-bs-toggle='modal' data-bs-target='#mod_editDoc'>Edit</button>
+                    <button id='callDelete' type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#mod_delDoc'>Delete</button>
+                  </div>
+                </td>
+              </tr>
+              `;
+              $('#tbodyServices').append(read_doctor_html);
+            }); // END EACH FUNCTION
           },
           error: function(error) {
             console.log("ERROR READ:", error);
@@ -293,7 +320,7 @@ include_once('header.php');
           success: function (response) {
             console.log('FUNCTION DATA:', service_data);
             console.log(response);
-            // loadServices();
+            loadServices();
             closeModal();
           },
           error: function (error) {

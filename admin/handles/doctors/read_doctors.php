@@ -13,7 +13,7 @@ try {
 		        d.middle_name, 
 		        d.last_name, 
 		        d.contact, 
-		        CONCAT(d.first_name, ' ', COALESCE(d.middle_name, ' '), ' ', d.last_name) AS full_name, 
+		        CONCAT(d.first_name, ' ', COALESCE(d.middle_name, ''), ' ', d.last_name) AS full_name, 
 		        GROUP_CONCAT(a.avail_date ORDER BY 
 		            CASE a.avail_date
 		                WHEN 'Sunday' THEN 0
