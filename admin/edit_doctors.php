@@ -153,7 +153,7 @@ include_once('header.php');
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 
-              <button id="btnDel" type="button" class="btn btn-danger">Delete Record</button>
+              <button id="btnDel" type="button" data-doctor-id="" class="btn btn-danger">Delete Record</button>
             </div>
           </div>
         </div>

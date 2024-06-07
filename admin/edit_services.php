@@ -120,6 +120,28 @@ include_once('header.php');
       include_once('modals/service_sched_modal.php');
       ?>
       <!-- end service sched modal -->
+
+      <!-- start delete service modal -->
+      <div class="modal fade" id="mod_delServ" tabindex="-1" aria-labelledby="mod_delServLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="mod_delServLabel">Delete Service</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <label for="del_user_input" class="form-label">Type <b>DELETE</b> to delete the <span id="servName"></span>'s service.</label>
+              <input type="text" id="del_user_input" class="form-control" required>            
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+              <button id="btnDel" type="button" data-service-id="" class="btn btn-danger">Delete Record</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end delete service modal -->
     </div>
     <!-- end container fluid -->
   </div>
@@ -150,20 +172,20 @@ include_once('header.php');
 
               const read_doctor_html = `
               <tr>
-                <th scope="row">${data.service_id}</th>
-                <td>${data.service_name}</td>
-                <td>${data.description}</td>
-                <td>${datesWithNewLines}</td>
-                <td>${timesWithNewLines}</td>
-                <td>${data.duration}</td>
-                <td>${data.cost}</td>
-                <td>${data.full_name}</td>
-                <td data-doctor-id='${data.doctor_id}' data-doctor-name='${data.last_name}'>
-                  <div class="d-grid gap-2 d-md-flex justify-content-md-end text-center">
-                    <button id='callEdit' type='button' class='btn btn-success' data-bs-toggle='modal' data-bs-target='#mod_editDoc'>Edit</button>
-                    <button id='callDelete' type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#mod_delDoc'>Delete</button>
-                  </div>
-                </td>
+              <th scope="row">${data.service_id}</th>
+              <td>${data.service_name}</td>
+              <td>${data.description}</td>
+              <td>${datesWithNewLines}</td>
+              <td>${timesWithNewLines}</td>
+              <td>${data.duration}</td>
+              <td>${data.cost}</td>
+              <td>${data.full_name}</td>
+              <td data-service-id='${data.service_id}' data-service-name='${data.service_name}'>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end text-center">
+              <button id='callEdit' type='button' class='btn btn-success' data-bs-toggle='modal' data-bs-target='#mod_editServ'>Edit</button>
+              <button id='callDelete' type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#mod_delServ'>Delete</button>
+              </div>
+              </td>
               </tr>
               `;
               $('#tbodyServices').append(read_doctor_html);
@@ -326,6 +348,43 @@ include_once('header.php');
           error: function (error) {
             console.log('ADD SERVICE ERROR:', error);
             console.log('ERROR: SERVICE DATA:', service_data);
+            alert("Please Ensure All Fields are COMPLETE");
+          }
+        });
+      });
+
+      // DELETE SERVICE
+      $(document).on('click', '#callDelete', function() {
+        var service_id = $(this).closest("td").data('service-id');
+        var service_name = $(this).closest("td").data('service-name');
+
+        console.log("service id:", service_id, "service name:", service_name);
+        $('#servName').text(service_name);
+
+        $('#btnDel').data('service-id', service_id);
+      });
+
+      $(document).on('click', '#btnDel', function() {
+        var service_id = $(this).data('service-id');
+        var user_input = $('#del_user_input').val();
+
+        if (user_input !== 'DELETE') {
+          alert('Please type DELETE to confirm.');
+          return;
+        }
+
+        $.ajax({
+          type: 'POST',
+          url: 'handles/services/delete_service.php',
+          data: {service_id: service_id, user_input: user_input},
+          dataType: 'JSON',
+          success: function(response) {
+            console.log("DELETE SERVICE RESPONSE:", response);
+            loadServices();
+            $('#mod_delServ').modal('hide');
+          },
+          error: function(error) {
+            console.log("DELETE SERVICE ERROR:", error);
           }
         });
       });

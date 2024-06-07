@@ -48,28 +48,37 @@
 
       // START DELETE DOCTOR
       $(document).on('click', '#callDelete', function() {
-        console.log("hello world");
         var doctor_id = $(this).closest("td").data('doctor-id');
-        var doctor_name = $(this).closest("td").data('doctor-name');
+        var service_name = $(this).closest("td").data('doctor-name');
 
-        $('#drName').empty().append(doctor_name);
+        console.log("doctor id:", doctor_id, "doctor name:", service_name);
+        $('#servName').text(service_name);
 
-        $(document).on('click', '#btnDel', function() {
-          var user_input = $('#del_user_input').val();
-          $.ajax({
-            type: 'POST',
-            url: 'handles/doctors/delete_doctor.php',
-            data: {doctor_id: doctor_id, user_input: user_input},
-            dataType: 'JSON',
-            success: function(response) {
-              console.log("DELETE RESPONSE:", response);
-              loadDoctors();
-              closeModal();
-            },
-            error: function(error) {
-              console.log("DELETE ERROR:", error);
-            }
-          });
+        $('#btnDel').data('doctor-id', doctor_id);
+      });
+
+      $(document).on('click', '#btnDel', function() {
+        var doctor_id = $(this).data('doctor-id');
+        var user_input = $('#del_user_input').val();
+
+        if (user_input !== 'DELETE') {
+          alert('Please type DELETE to confirm.');
+          return;
+        }
+
+        $.ajax({
+          type: 'POST',
+          url: 'handles/doctors/delete_doctor.php',
+          data: {doctor_id: doctor_id, user_input: user_input},
+          dataType: 'JSON',
+          success: function(response) {
+            console.log("DELETE DOCTOR RESPONSE:", response);
+            loadDoctors();
+            $('#mod_delDoc').modal('hide');
+          },
+          error: function(error) {
+            console.log("DELETE DOCTOR ERROR:", error);
+          }
         });
       });
 
