@@ -30,7 +30,7 @@ include_once('header.php');
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Doctor Name</th>
-                <th scope="col">Available Date</th>
+                <th scope="col">Available Day</th>
                 <th scope="col">Available Time</th>
                 <th scope="col">Contact</th>
                 <th scope="col">Action</th>
@@ -134,7 +134,7 @@ include_once('header.php');
       <!-- end edit doctor modal -->
       <!-- start edit doctor sched modal -->
       <?php
-      include_once('modals/edit_doctor_sched_modal.php');
+      include_once('modals/e_doctor_sched_modal.php');
       ?>
       <!-- end edit doctor sched modal -->
 

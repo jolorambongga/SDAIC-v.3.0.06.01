@@ -3,41 +3,53 @@
 require_once('../../../includes/config.php');
 
 try {
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $doctor_id = $_POST['doctor_id'];
+    $service_name = $_POST['service_name'];
+    $description = $_POST['description'];
+    $cost = $_POST['cost'];
+    $duration = $_POST['duration'];
+    
 
-	$service_name = $_POST['service_name'];
-	$description = $_POST['description'];
-	$duration = $_POST['duration'];
-	$cost = $_POST['cost'];
-	$doctor_id = $_POST['doctor_id'];
+    $sql = "INSERT INTO tbl_Services (doctor_id, service_name, description, cost, duration)
+    VALUES (?, ?, ?, ?, ?);";
 
-	$postData = array(
-        "service_name" => $service_name,
-        "description" => $description,
-        "duration" => $duration,
-        "cost" => $cost,
-        "doctor_id" => $doctor_id
-    );
+    $stmt = $pdo->prepare($sql);
 
-	$sql = "INSERT INTO tbl_Services (service_name, description, duration, cost, doctor_id) VALUES (?, ?, ?, ?, ?);";
+    $stmt->bindParam(1, $doctor_id, PDO::PARAM_INT);
+    $stmt->bindParam(2, $service_name, PDO::PARAM_STR);
+    $stmt->bindParam(3, $description, PDO::PARAM_STR);
+    $stmt->bindParam(4, $cost, PDO::PARAM_INT);
+    $stmt->bindParam(5, $duration, PDO::PARAM_INT);
 
-	$stmt = $pdo->prepare($sql);
-
-	$stmt->bindParam(1, $service_name, PDO::PARAM_STR);
-	$stmt->bindParam(2, $description, PDO::PARAM_STR);
-	$stmt->bindParam(3, $duration, PDO::PARAM_STR);
-	$stmt->bindParam(4, $cost, PDO::PARAM_STR);
-	$stmt->bindParam(5, $doctor_id, PDO::PARAM_STR);
-
-	$stmt->execute();
+    $stmt->execute();
 
 
-	header('Content-Type: application/json');
+    $service_id = $pdo->lastInsertId();
 
-	echo json_encode(array("status" => "success", "process" => "create service", "data" => $postData));
+    $avail_dates = json_decode($_POST['avail_dates'], true);
 
+    foreach ($avail_dates as $availability) {
+        
+        $avail_day = $availability['avail_day'];
+        $avail_start_time = $availability['avail_start_time'];
+        $avail_end_time = $availability['avail_end_time'];
+
+        $query = "INSERT INTO tbl_ServiceAvailability (service_id, avail_date, avail_start_time, avail_end_time) VALUES (?, ?, ?, ?)";
+
+        $stmt = $pdo->prepare($query);
+
+        $stmt->execute([$service_id, $avail_day, $avail_start_time, $avail_end_time]);
+    }
+
+
+    header('Content-Type: application/json');
+    echo json_encode(array("status" => "success", "process" => "add service and availability", "avail_dates_data" => $avail_dates));
 
 } catch (PDOException $e) {
-	echo json_encode(["status" => "error", "message" => $e->getMessage(), "report" => "create catch reached"]);
+
+    header('Content-Type: application/json');
+    echo json_encode(array("status" => "error", "message" => $e->getMessage(), "process" => "add service and availability", "data" => $avail_dates));
+
 }

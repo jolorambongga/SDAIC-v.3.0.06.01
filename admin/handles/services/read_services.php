@@ -6,7 +6,8 @@ try {
 
 	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-	$sql = "SELECT s.service_id, s.service_name, s.description, s.duration, s.cost, s.doctor_id, d.doctor_name
+	$sql = "SELECT s.service_id, s.service_name, s.description, s.duration, s.cost, s.doctor_id,
+			CONCAT(d.first_name, ' ', COALESCE(d.middle_name, ' '), ' ', d.last_name) AS full_name
 			FROM tbl_Services AS s
 			LEFT JOIN tbl_Doctors AS d
 			ON s.doctor_id = d.doctor_id;";
