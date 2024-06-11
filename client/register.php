@@ -80,7 +80,7 @@ include_once('header.php');
         type: "POST",
         data: $(this).serialize(),
         success: function(response){
-          // window.location.href="new_appointment.php";
+          window.location.href="new_appointment.php";
           console.log(response);
         },
         error: function(jqXHR, textStatus, errorThrown){

@@ -53,5 +53,6 @@ try {
 
 } catch (PDOException $e) {
     echo json_encode(["status" => "error", "message" => $e->getMessage(), "report" => "read catch reached"]);
+    echo '<script>alert("An unknown error occurred");</script>';
 }
 ?>

@@ -5,6 +5,8 @@ $active_profile = "";
 $active_your_appointments = "";
 $active_new_appointment = "active";
 include_once('header.php');
+include_once('handles/auth.php');
+checkAuth();
 ?>  
 
 <div class="my-wrapper">

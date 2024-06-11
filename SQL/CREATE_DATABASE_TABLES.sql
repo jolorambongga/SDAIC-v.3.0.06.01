@@ -17,7 +17,7 @@
 
     CREATE TABLE IF NOT EXISTS tbl_Users (
         user_id INT AUTO_INCREMENT PRIMARY KEY,
-        role_id INT NOT NULL,
+        role_id INT DEFAULT 2,
         username VARCHAR(50) NOT NULL,
         email VARCHAR(100) NOT NULL,
         password VARCHAR(100) NOT NULL,
@@ -27,6 +27,7 @@
         contact VARCHAR(20) NOT NULL,
         address VARCHAR(255) NOT NULL,
         birthday DATE NOT NULL,
+        user_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (role_id) REFERENCES tbl_Roles(role_id)
     );
 

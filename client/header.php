@@ -52,7 +52,15 @@
 					</li>
 					</ul>';
 
+				} else {
+					echo`
+
+					<script>
+						window.location.href="index.php";
+					</script>
+					`;
 				}
+
 				?>
 			</div>
 			<div class="col-md-6 d-flex justify-content-end" style="background-color: hotpink;">
@@ -82,7 +90,7 @@
 					type: "GET",
 					url: "handles/logout_endpoint.php",
 					success: function(response) {
-						window.location.reload();
+						window.location.href="index.php";
 						console.log(response);
 					},
 					error: function(error) {
