@@ -22,6 +22,17 @@
 
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'></script>
 
+<script>
+	$(document).ready(function () {
+		$('#btnRegister').click(function () {
+			window.location.href="register.php";
+		});
+		$('#btnLogin').click(function() {
+			window.location.href="login.php";
+		});
+	});
+</script>
+
 </body>
 
 </html>

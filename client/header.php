@@ -50,8 +50,8 @@
 			</div>
 			<div class="col-md-6 d-flex justify-content-end" style="background-color: hotpink;">
 				<!-- IF SET CONDITION FOR BUTTONS -->
-				<button type="button" class="btn btn-primary me-2 mt-2 mb-2">Register</button>
-				<button type="button" class="btn btn-primary me-2 mt-2 mb-2">Log-In</button>
+				<button id="btnRegister" type="button" class="btn btn-primary me-2 mt-2 mb-2">Register</button>
+				<button id="btnLogin" type="button" class="btn btn-primary me-2 mt-2 mb-2">Log-In</button>
 			</div>
 		</div>
 	</div>

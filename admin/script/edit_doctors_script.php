@@ -95,7 +95,12 @@
         var avail_day = $('#avail_day').val();
         var avail_start_time = $('#avail_start_time').val();
         var avail_end_time = $('#avail_end_time').val();
-        //<div class="input-group mb-3 w-100 d-flex justify-content-end align-items-center">
+        
+        if (!avail_day || !avail_start_time || !avail_end_time) {
+          alert('Please complete the schedule details.');
+          return;
+        }
+        
         const sched_data = 
         `
         <div class="input-group mx-auto w-100 schedule-item">
@@ -170,6 +175,11 @@
         var contact = $('#contact').val();
         var avail_dates = $('#avail_dates').val();
 
+        if (!avail_dates || avail_dates === '[]') {
+          alert('PLEASE COMPLETE SCHEDULE');
+          return;
+        }
+
         var doctor_data = {
           first_name: first_name,
           middle_name: middle_name,
@@ -190,6 +200,8 @@
             console.log(response);
             loadDoctors();
             closeModal();
+            $('#bodySched').empty();
+            scheduleList = [];
           },
           error: function (error) {
             console.log('ADD DOCTOR ERROR:', error);
@@ -240,7 +252,7 @@
               $('#e_bodySched').append(sched_data);
 
               editScheduleList.push({
-                avail_day: schedule.avail_day,
+                avail_day: schedule.avail_date,
                 avail_start_time: schedule.avail_start_time,
                 avail_end_time: schedule.avail_end_time
               });
@@ -255,6 +267,8 @@
             $('#e_avail_start_time').val(response.data[0].avail_start_time);
             $('#e_avail_end_time').val(response.data[0].avail_end_time);
             // $('#mod_editDocSched').modal('show');
+
+            console.log('grabbed schedule list', editScheduleList);
           },
           error: function(error) {
             console.log("get doctor error:", error);
@@ -267,6 +281,11 @@
         var avail_day = $('#e_avail_day').val();
         var avail_start_time = $('#e_avail_start_time').val();
         var avail_end_time = $('#e_avail_end_time').val();
+
+        if (!avail_day || !avail_start_time || !avail_end_time) {
+          alert('Please complete the schedule details.');
+          return;
+        }
 
         const sched_data = `
         <div class="input-group mx-auto w-100 schedule-item">
@@ -331,12 +350,20 @@
 
         e.preventDefault();
 
+        var avail_dates = JSON.stringify(editScheduleList);
+        $('#e_avail_dates').val(avail_dates);
+
         var doctor_id = $('#e_doctor_id').val(); // Assuming you have a hidden input for doctor_id in the modal
         var first_name = $('#e_first_name').val();
         var middle_name = $('#e_middle_name').val();
         var last_name = $('#e_last_name').val();
         var contact = $('#e_contact').val();
         var avail_dates = $('#e_avail_dates').val();
+
+        if (!avail_dates || avail_dates === '[]') {
+          alert('PLEASE COMPLETE SCHEDULE');
+          return;
+        }
 
         var doctor_data = {
           doctor_id: doctor_id,

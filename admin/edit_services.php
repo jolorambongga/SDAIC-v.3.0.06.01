@@ -67,12 +67,12 @@ include_once('header.php');
               <div class="modal-body">
                 <!-- start service name -->
                 <label for="service_name" class="form-label">Service Name</label>
-                <input type="text" id="service_name" class="form-control">
+                <input type="text" id="service_name" class="form-control" required>
                 <pre></pre>
                 <!-- end service name -->
                 <!-- start service description -->
                 <label for="description" class="form-label">Service Description</label>
-                <textarea type="text" id="description" class="form-control"></textarea>
+                <textarea type="text" id="description" class="form-control" required></textarea>
                 <pre></pre>
                 <!-- end service description -->
                 
@@ -82,14 +82,14 @@ include_once('header.php');
 
                 <!-- service duration -->
                 <label for="duration" class="form-label">Service Duration</label>
-                <input type="number" id="duration" class="form-control">
+                <input type="number" id="duration" class="form-control" required>
                 <pre></pre>
                 <!-- end service duration -->
                 <!-- service cost -->
                 <label for="cost" class="form-label">Service Cost</label>
                 <div class="input-group mb-3">
                   <span class="input-group-text bg-warning-">₱</span>
-                  <input type="number" id="cost" class="form-control">
+                  <input type="number" id="cost" class="form-control" required>
                   <span class="input-group-text bg-warning-">.00</span>
                 </div>
                 <!-- end service cost -->
@@ -247,7 +247,12 @@ include_once('header.php');
         var avail_day = $('#avail_day').val();
         var avail_start_time = $('#avail_start_time').val();
         var avail_end_time = $('#avail_end_time').val();
-        //<div class="input-group mb-3 w-100 d-flex justify-content-end align-items-center">
+        
+        if (!avail_day || !avail_start_time || !avail_end_time) {
+          alert('Please complete the schedule details.');
+          return;
+        }
+
         const sched_data = 
         `
         <div class="input-group mx-auto w-100 schedule-item">
@@ -323,6 +328,16 @@ include_once('header.php');
         var avail_dates = $('#avail_dates').val();
         var doctor_id = $('#doctor').find(':selected').data('doctor-id');
 
+        if (!avail_dates || avail_dates === '[]') {
+          alert('Please Select a Schedule...');
+          return;
+        }
+
+        if(!doctor_id) {
+          alert("Please Select a Doctor...");
+          return;
+        }
+
         var service_data = {
           service_name: service_name,
           description: description,
@@ -348,7 +363,7 @@ include_once('header.php');
           error: function (error) {
             console.log('ADD SERVICE ERROR:', error);
             console.log('ERROR: SERVICE DATA:', service_data);
-            alert("Please Ensure All Fields are COMPLETE");
+            // alert("Please Ensure All Fields are COMPLETE");
           }
         });
       });

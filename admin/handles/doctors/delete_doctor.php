@@ -10,7 +10,7 @@ try {
 	$user_input = $_POST['user_input'];
 
 	if ($user_input == 'DELETE') {
-
+		// DOCTOR AVAILABILITY
 		$sql = "DELETE FROM tbl_DoctorAvailability WHERE doctor_id = ?;";
 
 		$stmt = $pdo->prepare($sql);
@@ -19,6 +19,7 @@ try {
 
 		$stmt->execute();
 
+		// DELETE DOCTOR
 		$sql = "DELETE FROM tbl_Doctors WHERE doctor_id = ?;";
 
 		$stmt = $pdo->prepare($sql);
