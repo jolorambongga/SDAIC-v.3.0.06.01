@@ -31,29 +31,64 @@
 						<a class="nav-link <?php echo $active_index ?>" href="index.php">Homepage</a>
 					</li>
 				</ul>
-				<!-- Add "active" class to the selected tab -->
-				<ul class="nav nav-tabs my_nav">
+				<?php
+				session_start();
+
+				if(isset($_SESSION['user_id'])) {
+					echo '
+					<ul class="nav nav-tabs my_nav">
 					<li class="nav-item">
-						<a class="nav-link <?php echo $active_profile ?>" href="profile.php">Profile</a>
+					<a class="nav-link ' . $active_profile . '" href="profile.php">Profile</a>
 					</li>
-				</ul>
-				<ul class="nav nav-tabs my_nav">
+					</ul>
+					<ul class="nav nav-tabs my_nav">
 					<li class="nav-item">
-						<a class="nav-link <?php echo $active_your_appointments ?>" href="your_appointments.php">Your Appointments</a>
+					<a class="nav-link ' . $active_your_appointments . '" href="your_appointments.php">Your Appointments</a>
 					</li>
-				</ul>
-				<ul class="nav nav-tabs my_nav">
+					</ul>
+					<ul class="nav nav-tabs my_nav">
 					<li class="nav-item">
-						<a class="nav-link <?php echo $active_new_appointment ?>" href="new_appointment.php">New Appointment</a>
+					<a class="nav-link ' . $active_new_appointment . '" href="new_appointment.php">New Appointment</a>
 					</li>
-				</ul>
+					</ul>';
+
+				}
+				?>
 			</div>
 			<div class="col-md-6 d-flex justify-content-end" style="background-color: hotpink;">
 				<!-- IF SET CONDITION FOR BUTTONS -->
-				<button id="btnRegister" type="button" class="btn btn-primary me-2 mt-2 mb-2">Register</button>
-				<button id="btnLogin" type="button" class="btn btn-primary me-2 mt-2 mb-2">Log-In</button>
+				<?php
+				if(isset($_SESSION['user_id'])) {
+					echo '
+					<button id="btnLogout" type="button" class="btn btn-danger me-2 mt-2 mb-2">Log-Out</button>
+					';
+				} else {
+					echo '
+					<button id="btnRegister" type="button" class="btn btn-primary me-2 mt-2 mb-2">Register</button>
+					<button id="btnLogin" type="button" class="btn btn-primary me-2 mt-2 mb-2">Log-In</button>
+					';
+				}
+				?>
 			</div>
 		</div>
 	</div>
 
 	<!-- end header -->
+
+	<script>
+		$(document).ready(function () {
+			$('#btnLogout').click(function () {
+				$.ajax({
+					type: "GET",
+					url: "handles/logout_endpoint.php",
+					success: function(response) {
+						window.location.reload();
+						console.log(response);
+					},
+					error: function(error) {
+						console.log(error);
+					}
+				});
+			});
+		});
+	</script>

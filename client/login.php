@@ -13,10 +13,10 @@ include_once('header.php');
       <div class="col-md-4">
         <div class="login-box">
           <h1 class="text-center mb-4">Log In</h1>
-          <form action="client/login.php" method="post">
+          <form method="post" id="frm_login">
             <div class="form-group">
               <label for="username">Username</label>
-              <input type="text" class="form-control" id="username" name="username" required>
+              <input type="text" class="form-control" id="username" name="login" required>
             </div>
             <div class="form-group">
               <label for="password">Password</label>
@@ -24,7 +24,7 @@ include_once('header.php');
             </div>
             <div class="mb-4"></div>
             <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block">Log In</button>
+              <input value="Log In" id="btnLogin" type="submit" class="btn btn-primary btn-block">
             </div>
           </form>
         </div>
@@ -33,6 +33,23 @@ include_once('header.php');
   </div>
 </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#btnLogin').click(function () {
+      $.ajax({
+        type: 'GET',
+        url: 'handles/login_endpoint.php',
+        data: {}
+        dataType: 'JSON',
+        success: function(response) {
+
+        },
+
+      });
+    });
+  });
+</script>
 
 <?php
 include_once('footer.php');

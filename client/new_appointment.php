@@ -1,5 +1,8 @@
 <?php
 $title = "INDEX ITO";
+$active_index = "";
+$active_profile = "";
+$active_your_appointments = "";
 $active_new_appointment = "active";
 include_once('header.php');
 ?>  

@@ -357,6 +357,7 @@ include_once('header.php');
           success: function (response) {
             console.log('FUNCTION DATA:', service_data);
             console.log(response);
+            clearFields();
             loadServices();
             closeModal();
           },
@@ -414,7 +415,14 @@ include_once('header.php');
 
       // CLEAR FIELDS FUNCTION
       function clearFields() {
+        $('#service_name').val('');
+        $('#description').val('');
+        $('#duration').val('');
+        $('#cost').val('');
 
+        $('#doctor').prop('selectedIndex', 0);
+        $('#bodySched').empty();
+        scheduleList = [];
       } // END CLEAR FIELDS FUNCTION
 
       // ON CLOSE MODAL
