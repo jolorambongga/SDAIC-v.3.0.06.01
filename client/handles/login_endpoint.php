@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once('connect.php');
+require_once('../../includes/config.php');
 
 try {
 
@@ -21,7 +21,7 @@ try {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user) {
-        if (password_verify($password, $user['Password'])) {
+        if (($password == $user['password'])) {
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['first_name'] = $user['first_name'];
             $_SESSION['middle_name'] = $user['middle_name'];

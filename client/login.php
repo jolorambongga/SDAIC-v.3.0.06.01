@@ -1,6 +1,10 @@
 <?php
 $title = "LOGIN ITO";
-$active_login = "active";
+$active_index = "";
+$active_profile = "";
+$active_your_appointments = "";
+$active_new_appointment = "";
+$active_login="active";
 include_once('header.php');
 ?>
 
@@ -16,7 +20,7 @@ include_once('header.php');
           <form method="post" id="frm_login">
             <div class="form-group">
               <label for="username">Username</label>
-              <input type="text" class="form-control" id="username" name="login" required>
+              <input type="text" class="form-control" id="login" name="login" required>
             </div>
             <div class="form-group">
               <label for="password">Password</label>
@@ -36,16 +40,19 @@ include_once('header.php');
 
 <script>
   $(document).ready(function() {
-    $('#btnLogin').click(function () {
+    $('#frm_login').submit(function (e) {
+      e.preventDefault();
       $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: 'handles/login_endpoint.php',
-        data: {}
-        dataType: 'JSON',
+        data: {login: $('#login').val(), password: $('#password').val()},
         success: function(response) {
-
+          console.log(response);
+          window.location.href="new_appointment.php";
         },
-
+        error: function(error) {
+          console.log(error);
+        }
       });
     });
   });
