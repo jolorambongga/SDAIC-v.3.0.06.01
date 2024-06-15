@@ -34,7 +34,7 @@ checkAuth();
             <div id="step-2" class="form-step" style="display:none;">
               <div class="title">Upload Photo of Your Request</div>
               <div class="box mb-3">
-                <input type="file" name="procedure_image" id="procedure_image" class="form-control">              
+                <input accept="image/jpeg, image/png, image/gif" type="file" name="procedure_image" id="procedure_image" class="form-control">              
               </div>
               <button type="button" class="btn btn-warning next-btn float-end mt-3">Next</button>
               <button type="button" class="btn btn-danger prev-btn float-end mt-3 me-2">Previous</button>

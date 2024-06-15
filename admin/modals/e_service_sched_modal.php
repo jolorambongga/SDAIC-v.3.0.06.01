@@ -1,15 +1,15 @@
 <!-- start schedule modal -->
-<div class="modal fade" id="mod_editDocSched" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mod_editDocSchedLabel" aria-hidden="true">
+<div class="modal fade" id="mod_editServSched" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mod_editServSchedLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="mod_editDocSchedLabel">Edit Doctor's Schedule</h1>
+        <h1 class="modal-title fs-5" id="mod_editServSchedLabel">Edit Services' Schedule</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
 
         <input type="hidden" id="e_avail_dates" name="e_avail_dates">
-        <input type="hidden" id="e_doctor_id" name="e_doctor_id">
+        <input type="hidden" id="e_service_id" name="e_service_id">
 
         <pre></pre>
 

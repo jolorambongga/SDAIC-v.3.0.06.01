@@ -49,6 +49,17 @@
       // START DELETE DOCTOR
       $(document).on('click', '#callDelete', function() {
         var doctor_id = $(this).closest("td").data('doctor-id');
+        var doctor_name = $(this).closest("td").data('doctor-name');
+
+        console.log("doctor id:", doctor_id, "doctor name:", doctor_name);
+        $('#delDrName').text(doctor_name);
+
+        $('#btnDel').data('doctor-id', doctor_id);
+      });
+
+
+      $(document).on('click', '#callDelete', function() {
+        var doctor_id = $(this).closest("td").data('doctor-id');
         var service_name = $(this).closest("td").data('doctor-name');
 
         console.log("doctor id:", doctor_id, "doctor name:", service_name);

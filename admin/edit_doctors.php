@@ -147,7 +147,7 @@ include_once('header.php');
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <label for="del_user_input" class="form-label">Type <b>DELETE</b> to delete Dr. <span id="drName"></span>'s record.</label>
+              <label for="del_user_input" class="form-label">Type <b>DELETE</b> to delete Dr. <span id="delDrName"></span>'s record.</label>
               <input type="text" id="del_user_input" class="form-control" required>            
             </div>
             <div class="modal-footer">
