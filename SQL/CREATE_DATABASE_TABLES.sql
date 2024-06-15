@@ -86,7 +86,7 @@
         appointment_time TIME NOT NULL,
         request_image VARCHAR(255),
         notes TEXT,
-        status VARCHAR(50),
+        status VARCHAR(50) DEFAULT 'PENDING',
         time_stamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES tbl_Users(user_id),
         FOREIGN KEY (service_id) REFERENCES tbl_Services(service_id)
